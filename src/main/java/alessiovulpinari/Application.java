@@ -38,14 +38,10 @@ public class Application {
         Order[] orderArray = {order1, order2, order3, order4};
         List<Order> orders = Arrays.stream(orderArray).toList();
 
-        // -------------------------------------------------------------- ESERCIZIO 1 -------------------------------------------------------------------------------------------
-
         System.out.println("-------------------------------------------------------------- ESERCIZIO 1 -------------------------------------------------------------------------------------------");
         System.out.println();
         Map<Customer, List<Order>> customerListMap = orders.stream().collect(Collectors.groupingBy(Order::getCustomer));
         customerListMap.forEach((customer, orders1) -> System.out.println(customer + " \n\t" + orders1 + " \n"));
-
-        // -------------------------------------------------------------- ESERCIZIO 2 -------------------------------------------------------------------------------------------
 
         System.out.println("-------------------------------------------------------------- ESERCIZIO 2 -------------------------------------------------------------------------------------------");
         System.out.println();
@@ -70,6 +66,15 @@ public class Application {
 
         Double average = orders.stream().flatMap(order -> order.getProducts().stream()).collect(Collectors.averagingDouble(Product::getPrice));
         System.out.println(average);
+
+        System.out.println("-------------------------------------------------------------- ESERCIZIO 5 -------------------------------------------------------------------------------------------");
+        System.out.println();
+
+        List<Product> listOfProduct2 = getListOfProduct(10);
+        Map<String, Double> listOfSumOfProduct = listOfProduct2.stream().collect(Collectors.groupingBy(product -> product.getCategory(), Collectors.summingDouble(Product::getPrice)));
+        listOfSumOfProduct.forEach((category, sum) -> System.out.println("Categoria: " + category + " \n" + "Somma: " + sum + "\n"));
+
+
     }
 
 
