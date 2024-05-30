@@ -40,9 +40,21 @@ public class Application {
 
         // -------------------------------------------------------------- ESERCIZIO 1 -------------------------------------------------------------------------------------------
 
+        System.out.println("-------------------------------------------------------------- ESERCIZIO 1 -------------------------------------------------------------------------------------------");
+        System.out.println();
         Map<Customer, List<Order>> customerListMap = orders.stream().collect(Collectors.groupingBy(Order::getCustomer));
-        System.out.println(customerListMap);
+        customerListMap.forEach((customer, orders1) -> System.out.println(customer + " \n\t" + orders1 + " \n"));
+
+        // -------------------------------------------------------------- ESERCIZIO 2 -------------------------------------------------------------------------------------------
+
+        System.out.println("-------------------------------------------------------------- ESERCIZIO 2 -------------------------------------------------------------------------------------------");
+        System.out.println();
+
+        Map<Customer, Double> customerSumListMap = orders.stream().collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(Order -> Order.getProducts().stream().mapToDouble(Product::getPrice).sum())));
+        customerSumListMap.forEach(((customer, aDouble) -> System.out.println(customer + " \n\t" + aDouble)));
     }
+
+//    orders.stream().map(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum()).collect(Collectors.groupingBy(o -> o.));
 
     public static List<Product> getListOfProduct(int num) {
         Supplier<Product> productSupplier = () -> {
