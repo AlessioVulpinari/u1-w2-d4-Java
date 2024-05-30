@@ -68,7 +68,8 @@ public class Application {
         System.out.println("-------------------------------------------------------------- ESERCIZIO 4 -------------------------------------------------------------------------------------------");
         System.out.println();
 
-        
+        Double average = orders.stream().flatMap(order -> order.getProducts().stream()).collect(Collectors.averagingDouble(Product::getPrice));
+        System.out.println(average);
     }
 
 
