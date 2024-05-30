@@ -51,10 +51,26 @@ public class Application {
         System.out.println();
 
         Map<Customer, Double> customerSumListMap = orders.stream().collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(Order -> Order.getProducts().stream().mapToDouble(Product::getPrice).sum())));
-        customerSumListMap.forEach(((customer, aDouble) -> System.out.println(customer + " \n\t" + aDouble)));
+        customerSumListMap.forEach(((customer, aDouble) -> System.out.println("Name: " + customer.getName() + " \n" + "Prezzo totale:" + aDouble)));
+
+        System.out.println("-------------------------------------------------------------- ESERCIZIO 3 -------------------------------------------------------------------------------------------");
+        System.out.println();
+
+        List<Product> listOfProduct = getListOfProduct(10);
+        OptionalDouble maxPrice = listOfProduct.stream().mapToDouble(Product::getPrice).max();
+
+        if (maxPrice.isPresent()) {
+            System.out.println(maxPrice.getAsDouble());
+        } else {
+            System.out.println("Lista vuota!");
+        }
+
+        System.out.println("-------------------------------------------------------------- ESERCIZIO 4 -------------------------------------------------------------------------------------------");
+        System.out.println();
+
+        
     }
 
-//    orders.stream().map(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum()).collect(Collectors.groupingBy(o -> o.));
 
     public static List<Product> getListOfProduct(int num) {
         Supplier<Product> productSupplier = () -> {
